@@ -1,0 +1,79 @@
+PROC omer:
+	LOCAL start&,min&,max&,day%,month%,year%,total&,today&,yamim,yom%,shavua%,choice%
+	start::
+		start&=35900
+		max&=90000
+		dINIT "Sfirat Ha'omer"
+		dDATE start&,"When was the first day of sfira?",min&,max&
+	DIALOG
+	day%=day
+	month%=month
+	year%=year
+	today&=DAYS(day%,month%,year%)
+	total&=today&-start&
+	if total&>49 or total&<0
+		gAT 130,60 :gFONT 2 :gSTYLE 41
+		gPRINT "You are not in the sfira days"
+		pause 20
+		stop
+	else
+		Goto Print::
+	endif
+	Print::
+	day%=day
+	month%=month
+	year%=year
+	today&=DAYS(day%,month%,year%)
+	total&=today&-start&
+	IF HOUR>=23 AND MINUTE>=10
+		total&=total&+1
+	ENDIF
+	IF HOUR=23 AND MINUTE=10
+		BEEP 1200,300
+	ENDIF
+	yamim=total&
+	shavua%=INT(yamim/7)
+	yom%=7-(((INT(yamim/7)+1)*7)-yamim)
+	IF INT(yamim/7)<>yamim/7 AND yamim>7
+		cls
+		gAT 70,60 :gFONT 2 :gSTYLE 41
+		gPRINT "Hayom",yamim,"yom, she'hem",shavua%,"shavuot v",yom%,"yamim la'omer"
+		PAUSE 1200
+		IF yamim<50
+			GOTO Print::
+		ELSE
+			STOP
+		ENDIF
+	ELSEIF INT(yamim/7)=yamim/7
+		cls
+		gAT 110,60 :gFONT 2 :gSTYLE 41
+		gPRINT "Hayom",yamim,"yom, she'hem",shavua%,"shavuot la'omer"
+		PAUSE 1200
+		IF yamim<50
+			GOTO Print::
+		ELSE
+			STOP
+		ENDIF
+	ELSEIF yamim<7 AND yamim<>1
+		cls
+		gAT 130,60 :gFONT 2 :gSTYLE 41
+		gPRINT "Hayom",yamim,"yamim la'omer"
+		
+		PAUSE 1200
+		IF yamim<50
+			GOTO Print::
+		ELSE
+			STOP
+		ENDIF
+	ELSEIF yamim=1
+		cls
+		gAT 130,60 :gFONT 2 :gSTYLE 41
+		gPRINT "Hayom yom echad la'omer"
+		PAUSe 1200
+		IF yamim<50
+			GOTO Print::
+		ELSE
+			STOP
+		ENDIF
+	ENDIF
+ENDP

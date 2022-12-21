@@ -1,0 +1,74 @@
+PROC Det:
+LOCAL a(16),sort%,oplos,oplosa,oplosb,oplosc,nog%,oplosd
+dINIT "Welk soort determinant"
+dCHOICE sort%,"Welke soort determinant berekenen?","2*2,3*3,4*4"
+DIALOG
+IF sort%=1
+GOTO two::
+ELSEIF sort%=2
+GOTO three::
+ELSE
+GOTO four::
+ENDIF
+two::
+CLS
+AT 20,2 :PRINT "Geef de determinant"
+AT 20,3 :PRINT "-------------------"
+AT 10,5 :INPUT a(1)
+AT 17,5 :INPUT a(2)
+AT 10,7 :INPUT a(3)
+AT 17,7 :INPUT a(4)
+oplos=a(1)*a(4)-a(2)*a(3)
+GOTO oplossin::
+three::
+CLS
+AT 20,2 :PRINT "Geef de determinant"
+AT 20,3 :PRINT "-------------------"
+AT 10,5 :INPUT a(1)
+AT 17,5 :INPUT a(2)
+AT 24,5 :INPUT a(3)
+AT 10,7 :INPUT a(4)
+AT 17,7 :INPUT a(5)
+AT 24,7 :INPUT a(6)
+AT 10,9 :INPUT a(7)
+AT 17,9 :INPUT a(8)
+AT 24,9 :INPUT a(9)
+oplos=a(1)*a(5)*a(9)+a(4)*a(8)*a(3)+a(2)*a(6)*a(7)-a(3)*a(5)*a(7)-a(2)*a(4)*a(9)-a(1)*a(6)*a(8)
+GOTO oplossin::
+four::
+CLS
+AT 20,2 :PRINT "Geef de determinant"
+AT 20,3 :PRINT "-------------------"
+AT 10,5 :INPUT a(1)
+AT 17,5 :INPUT a(2)
+AT 24,5 :INPUT a(3)
+AT 31,5 :INPUT a(4)
+AT 10,7 :INPUT a(5)
+AT 17,7 :INPUT a(6)
+AT 24,7 :INPUT a(7)
+AT 31,7 :INPUT a(8)
+AT 10,9 :INPUT a(9)
+AT 17,9 :INPUT a(10)
+AT 24,9 :INPUT a(11)
+AT 31,9 :INPUT a(12)
+AT 10,11 :INPUT a(13)
+AT 17,11 :INPUT a(14)
+AT 24,11 :INPUT a(15)
+AT 31,11 :INPUT a(16)
+oplosa=a(1)*(a(6)*a(11)*a(16)+a(7)*a(12)*a(14)+a(8)*a(10)*a(15)-a(8)*a(11)*a(14)-a(7)*a(10)*a(16)-a(6)*a(12)*a(15))
+oplosb=-a(2)*(a(5)*a(11)*a(16)+a(7)*a(12)*a(13)+a(8)*a(9)*a(15)-a(8)*a(11)*a(13)-a(7)*a(9)*a(16)-a(5)*a(12)*a(15))
+oplosc=a(3)*(a(5)*a(10)*a(16)+a(6)*a(12)*a(13)+a(8)*a(9)*a(14)-a(8)*a(10)*a(13)-a(6)*a(9)*a(16)-a(5)*a(12)*a(14))
+oplosd=-a(4)*(a(5)*a(10)*a(15)+a(6)*a(11)*a(13)+a(7)*a(9)*a(14)-a(7)*a(10)*a(13)-a(6)*a(9)*a(15)-a(5)*a(11)*a(14))
+oplos=oplosa+oplosb+oplosc+oplosd
+oplossin::
+AT 21,14 :PRINT "De determinant is",oplos
+PAUSE 60
+dINIT "Nog ‚‚n?"
+dCHOICE nog%,"Nog een determinant berekenen?","Ja,Neen"
+DIALOG
+IF nog%=1
+Det:
+ELSE
+:STOP
+ENDIF
+ENDP

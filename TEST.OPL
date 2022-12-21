@@ -1,0 +1,14 @@
+PROC test:
+local s&,yr%,mo%,dy%,hr%,mn%,sc%,yrday%
+DO
+INPUT yr%
+INPUT mo%
+INPUT dy%
+INPUT hr%
+INPUT mn%
+INPUT sc%
+s&=DATETOSECS(yr%,mo%,dy%,hr%,mn%,sc%)
+PRINT s&
+GET
+UNTIL yr%=0
+ENDP

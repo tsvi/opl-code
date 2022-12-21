@@ -1,0 +1,48 @@
+PROC jewishda:
+	local shana%,leap,yearx%,rest,tchelek&,intsha%,yr%,mo%,dy%,hr%,mn%,sc%,yrday%
+	INPUT yearx% :shana%=yearx%+3760
+	intsha%=INT(shana%/19)-301
+	rest=ABS(yearx%-(INT((yearx%-1)/19)*19))
+	If rest=3 OR rest=6 OR rest=8 OR rest=11 OR rest=14 OR rest=17 OR rest=19
+		leap=1
+	else
+		leap=0
+	endif
+	If rest<3 And rest>0
+		tchelek&=23669557+(INT(9185196*(3+1/3))*rest)+INT(179876755*(3+1/3))*intsha%
+	Elseif rest<6 And rest>2 
+		tchelek&=23669557+(INT(9185196*(3+1/3))*(rest-1)+INT(9950629*(3+1/3)))+INT(179876755*(3+1/3))*intsha%
+	Elseif rest<8 And rest>5
+		tchelek&=23669557+(INT(9185196*(3+1/3))*(rest-2)+INT(9950629*(3+1/3))*2)+INT(179876755*(3+1/3))*intsha%
+	Elseif rest<11 And rest>7
+		tchelek&=23669557+(INT(9185196*(3+1/3))*(rest-3)+INT(9950629*(3+1/3))*3)+INT(179876755*(3+1/3))*intsha%
+	Elseif rest<14 And rest>10
+		tchelek&=23669557+(INT(9185196*(3+1/3))*(rest-4)+INT(9950629*(3+1/3))*4)+INT(179876755*(3+1/3))*intsha%
+	Elseif rest<17 And rest>13
+		tchelek&=23669557+(INT(9185196*(3+1/3))*(rest-5)+INT(9950629*(3+1/3))*5)+INT(179876755*(3+1/3))*intsha%
+	Elseif rest<19 And rest>16
+		tchelek&=23669557+(INT(9185196*(3+1/3))*(rest-6)+INT(9950629*(3+1/3))*6)+INT(179876755*(3+1/3))*intsha%
+	Elseif rest=19
+		tchelek&=23669557+INT(179876755*(3+1/3))*intsha%
+	Endif
+	tchelek&=tchelek&-967703589
+	If tchelek&>2147483647
+	tchelek&=tchelek&-4294967296
+	Endif
+	SECSTODATE tchelek&,yr%,mo%,dy%,hr%,mn%,sc%,yrday%
+	PRINT yr%,mo%,dy%,hr%,mn%,sc%,yrday%
+	GET
+ENDP
+
+REM *-------*
+REM * notes *
+REM *-------*
+REM 1 Molad = 29 days
+REM         + 12 hours
+REM         +793 chalakim
+REM 1080 chalakim in one hour
+REM 1 NL-Year =         9185196 chalakim
+REM 1 LE-Year =         9950629 chalakim
+REM 1 Molad   =          765433 chalakim
+REM 1st Molad = 1 Tishri  25044 chalakim
+REM 1 cycle   =       179876755 chalakim
